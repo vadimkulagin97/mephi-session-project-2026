@@ -50,8 +50,8 @@
 
  - Проверка веб-сервера:
 
-|curl http://localhost
-curl http://<текущий_IP_машины>|
+| curl http://localhost
+curl http://10.0.2.15 | - IP может быть другим , есди DHCP выделяет адрес автоматически 
 
 Результат: curl_output.txt
 
