@@ -56,7 +56,7 @@ curl http://<текущий_IP_машины>|
 Результат: curl_output.txt
 
 GitHub репозиторий
-https://github.com/<ВАШ_ЛОГИН>/mephi-session-project-2026
+https://github.com/vadimkulagin97/mephi-session-project-2026
 
 Загруженные файлы
 - project_history.txt – история команд
