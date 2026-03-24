@@ -1,0 +1,50 @@
+1  ip addr show
+2  ping -c 4 8.8.8.8
+3  ping -c 4 $(ip route | awk '/default/ {print $3}')
+4  sudo hostnamectl set-hostname mephi-2026.domain.local
+5  sudo dnf install -y nginx tcpdump libcap-ng-utils policycoreutils-python-utils vim git
+6  sudo mkdir -p /data/mephi-web
+7  sudo groupadd -f mephi-devs
+8  sudo id -u mephi-admin &>/dev/null || sudo useradd -m -G mephi-devs mephi-admin
+9  echo "mephi-admin:P@ssw0rd2026" | sudo chpasswd
+10 sudo chown -R mephi-admin:mephi-devs /data/mephi-web
+11 sudo chmod 2775 /data/mephi-web
+12 sudo semanage fcontext -a -t httpd_sys_content_t "/data/mephi-web(/.*)?"
+13 sudo restorecon -Rv /data/mephi-web
+14 sudo setsebool -P httpd_can_network_connect 1
+15 sudo setsebool -P httpd_read_user_content 1
+16 sudo setcap cap_net_raw,cap_net_admin=eip /usr/sbin/tcpdump
+17 sudo -u mephi-admin tee /data/mephi-web/index.html > /dev/null <<'EOF'
+Hello from Student: Кулагин Вадим ДН036
+EOF
+18 sudo tee /etc/nginx/conf.d/mephi-web.conf > /dev/null <<'EOF'
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    server_name _;
+
+    root /data/mephi-web;
+    index index.html;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}
+EOF
+19 sudo nginx -t
+20 sudo systemctl restart nginx
+21 sudo systemctl enable nginx
+22 sudo firewall-cmd --permanent --add-service=http
+23 sudo firewall-cmd --reload
+24 curl http://localhost > ~/curl_output.txt
+25 curl http://$(ip addr show enp0s3 | awk '/inet / {print $2}' | cut -d/ -f1) >> ~/curl_output.txt
+26 history > ~/project_history.txt
+27 getenforce > ~/selinux_status.txt
+28 ls -Zd /data/mephi-web > ~/file_contexts.txt
+29 getcap /usr/sbin/tcpdump > ~/tcpdump_capabilities.txt
+30 stat /data/mephi-web > ~/permissions.txt
+31 id mephi-admin > ~/users_groups.txt
+32 getent group mephi-devs >> ~/users_groups.txt
+33 cp /etc/fstab ~/fstab.txt
+34 journalctl -u nginx --since "5 minutes ago" > ~/nginx_recent_logs.txt

@@ -1,0 +1,9 @@
+  File: /data/mephi-web
+  Size: 60        	Blocks: 0          IO Block: 4096   directory
+Device: 0,33	Inode: 6723        Links: 2
+Access: (2775/drwxrwsr-x)  Uid: ( 1001/mephi-admin)   Gid: ( 1002/mephi-devs)
+Context: unconfined_u:object_r:httpd_sys_content_t:s0
+Access: 2026-03-24 11:03:07.464566462 +0000
+Modify: 2026-03-24 10:34:24.601880062 +0000
+Change: 2026-03-24 11:03:01.828423851 +0000
+ Birth: 2026-03-24 10:27:45.252410323 +0000
